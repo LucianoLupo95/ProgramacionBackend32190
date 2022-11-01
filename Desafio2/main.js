@@ -61,24 +61,24 @@ class Contenedor{
     }
 };
 
-const objeto = {
-    title: "Azucar",
-    price: 9.25,
-    thumbnail: "foto"
+const objeto1 = {
+    title: "Amatista",
+    price: 800,
+    thumbnail: "https://rocasycristales.com/2863-large_default/amatista.jpg"
 }
 
 const objeto2 = {
-    title: "Pimienta",
-    price: 20.25,
-    thumbnail: "foto"
+    title: "Citrino",
+    price: 1000,
+    thumbnail: "https://http2.mlstatic.com/D_NQ_NP_779438-MLA43309401563_082020-O.jpg"
 }
 const contenedor = new Contenedor("./prueba.txt");
 
 async function ejecutarTodo(){
+    await contenedor.save(objeto1);
     await contenedor.save(objeto2);
     await contenedor.save(objeto2);
-    await contenedor.save(objeto2);
-    await contenedor.save(objeto2);
+    await contenedor.save(objeto1);
     console.log("save():\n");
     console.log(contenedor.getAll());
     console.log()
