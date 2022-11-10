@@ -2,21 +2,6 @@ const express = require('express');
 const fs = require('fs');
 const app = express()
 
-
-
-app.get('/productos', (req, res) => {
-
-    res.send(productos);    
-})
-
-
-const server = app.listen(8080, () =>{
-    console.log('Servidor escuchando en el puerto 8080');
-})
-
-server.on('error', error => console.log('Hubo un error: ' + error))
-
-
 //Contenedor
 class Contenedor{
     constructor(archivo){
@@ -78,3 +63,34 @@ class Contenedor{
         }
     }
 };
+const contenedorProductos = new Contenedor('productos.txt');
+
+app.get('/productos', (req, res) => {
+    contenedorProductos.getAll()
+    .then((productos) => res.send(productos))
+    .catch(err => console.log(err))
+})
+app.get('/productoRandom', (req, res) => {
+
+    contenedorProductos.getAll()
+    .then(productos =>{
+        let random = Math.floor(Math.random() * productos.length);
+        res.send(productos[random]);
+    })
+    .catch(err => console.log(err))
+    // contenedor.getAll()
+    // .then(productos =>{
+    //     let randomNum = Math.floor(Math.random() * (productos.length - 0 + 1)) + 0;
+    //     res.send(JSON.stringify(productos[randomNum],null,2))
+    // })
+    // .catch(err => console.log(err))
+})
+
+
+const server = app.listen(8080, () =>{
+    console.log('Servidor escuchando en el puerto 8080');
+})
+
+server.on('error', error => console.log('Hubo un error: ' + error))
+
+
