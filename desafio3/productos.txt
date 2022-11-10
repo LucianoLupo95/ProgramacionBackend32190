@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Amatista",
+    "price": 800,
+    "thumbnail": "https://rocasycristales.com/2863-large_default/amatista.jpg",
+    "id": 1
+  },
+  {
+    "title": "Citrino",
+    "price": 1000,
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_779438-MLA43309401563_082020-O.jpg",
+    "id": 2
+  },
+  {
+    "title": "Opalo",
+    "price": 3000,
+    "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
+    "id": 3
+  }
+]
