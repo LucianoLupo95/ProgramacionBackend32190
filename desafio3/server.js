@@ -78,12 +78,6 @@ app.get('/productoRandom', (req, res) => {
         res.send(productos[random]);
     })
     .catch(err => console.log(err))
-    // contenedor.getAll()
-    // .then(productos =>{
-    //     let randomNum = Math.floor(Math.random() * (productos.length - 0 + 1)) + 0;
-    //     res.send(JSON.stringify(productos[randomNum],null,2))
-    // })
-    // .catch(err => console.log(err))
 })
 
 
