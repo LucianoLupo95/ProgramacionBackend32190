@@ -4,7 +4,27 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
-let productos = [];
+let productos = [
+    {
+        "title": "Rey",
+        "price": 3000,
+        "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
+        "id":1
+      },
+      {
+        "title": "de",
+        "price": 3000,
+        "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
+        "id":2
+      },
+      {
+        "title": "los",
+        "price": 3000,
+        "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
+        "id":3
+      }
+
+];
 
 const routerProductos = new Router();
 
@@ -12,8 +32,10 @@ routerProductos.get('/', (req, res) =>{
     res.json(productos);
 });
 routerProductos.get('/:id', (req, res) =>{
-    const {id} = req.params;
-    const producto = productos.find(e => e.id == id);
+    let {id} = req.params;
+    id = parseInt(id);
+    console.log(id)
+    const producto = productos.find(e => e.id === id);
     if(!producto){
         res.send({error: 'producto no encontrado'});
     }
@@ -31,19 +53,24 @@ routerProductos.post('/', (req, res) =>{
     res.json(producto);
 });
 routerProductos.put('/:id', (req, res) =>{
-    const {id} = req.params;
+    let {id} = req.params;
+    id = parseInt(id);
     const productoNuevo = req.body;
-    const productoViejo = productos.find(e => e.id == id);
+    const productoViejo = productos.find(e => e.id === id);
     if(!productoViejo){
         res.send({error: 'producto no encontrado'});
     }
     const indice = productos.indexOf(productoViejo)
-    productos[indice] = productoNuevo;
+    for (let key in productoNuevo) {
+        if (productoNuevo.hasOwnProperty(key)) {
+            productos[indice][key] = productoNuevo[key]
+        }
+    }
     res.json(productos);
 });
 routerProductos.delete('/:id', (req, res) =>{    
-    const {id} = req.params;
-    const producto = productos.find(e => e.id == id);
+    const {id} = parseInt(req.params);
+    const producto = productos.find(e => e.id === id);
     if(!producto){
         res.json({error: 'producto no encontrado'});
     }
@@ -53,3 +80,4 @@ routerProductos.delete('/:id', (req, res) =>{
 app.use('/api/productos', routerProductos);
 const PORT = 8080;
 const server = app.listen(PORT, ()=> console.log(`Servidor escuchando en el puerto ${PORT}`)); 
+server.on('error', error => console.log('Hubo un error: ' + error));
