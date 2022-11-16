@@ -4,27 +4,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
-let productos = [
-    {
-        "title": "Rey",
-        "price": 3000,
-        "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
-        "id":1
-      },
-      {
-        "title": "de",
-        "price": 3000,
-        "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
-        "id":2
-      },
-      {
-        "title": "los",
-        "price": 3000,
-        "thumbnail": "https://nuestroclima.com/wp-content/uploads/2017/06/40E.jpg",
-        "id":3
-      }
-
-];
+let productos = [];
 
 const routerProductos = new Router();
 
