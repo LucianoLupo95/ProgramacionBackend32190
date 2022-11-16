@@ -12,8 +12,7 @@ routerProductos.get('/', (req, res) =>{
     res.json(productos);
 });
 routerProductos.get('/:id', (req, res) =>{
-    let {id} = req.params;
-    id = parseInt(id);
+    const id = parseInt(req.params.id);
     const producto = productos.find(e => e.id === id);
     if(!producto){
         res.send({error: 'producto no encontrado'});
@@ -32,24 +31,23 @@ routerProductos.post('/', (req, res) =>{
     res.json(producto);
 });
 routerProductos.put('/:id', (req, res) =>{
-    let {id} = req.params;
-    id = parseInt(id);
+    const id = parseInt(req.params.id);
     const productoNuevo = req.body;
     const productoViejo = productos.find(e => e.id === id);
     if(!productoViejo){
         res.send({error: 'producto no encontrado'});
-    }
-    const indice = productos.indexOf(productoViejo)
-    for (let key in productoNuevo) {
-        if (productoNuevo.hasOwnProperty(key)) {
-            productos[indice][key] = productoNuevo[key]
+    }else{      //Este else lo agregue porque sino me tiraba el error en consola
+        const indice = productos.indexOf(productoViejo)
+        for (let key in productoNuevo) {
+            if (productoNuevo.hasOwnProperty(key)) {
+                productos[indice][key] = productoNuevo[key]
+            }
         }
+        res.json(producto);
     }
-    res.json(producto);
 });
 routerProductos.delete('/:id', (req, res) =>{    
-    let {id} = req.params;
-    id = parseInt(id);
+    const id = parseInt(req.params.id);
     const producto = productos.find(e => e.id === id);
     if(!producto){
         res.json({error: 'producto no encontrado'});
