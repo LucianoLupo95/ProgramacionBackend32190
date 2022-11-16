@@ -14,7 +14,6 @@ routerProductos.get('/', (req, res) =>{
 routerProductos.get('/:id', (req, res) =>{
     let {id} = req.params;
     id = parseInt(id);
-    console.log(id)
     const producto = productos.find(e => e.id === id);
     if(!producto){
         res.send({error: 'producto no encontrado'});
@@ -46,10 +45,11 @@ routerProductos.put('/:id', (req, res) =>{
             productos[indice][key] = productoNuevo[key]
         }
     }
-    res.json(productos);
+    res.json(producto);
 });
 routerProductos.delete('/:id', (req, res) =>{    
-    const {id} = parseInt(req.params);
+    let {id} = req.params;
+    id = parseInt(id);
     const producto = productos.find(e => e.id === id);
     if(!producto){
         res.json({error: 'producto no encontrado'});
