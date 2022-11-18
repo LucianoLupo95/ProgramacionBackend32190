@@ -43,7 +43,6 @@ routerProductos.put('/:id', (req, res) =>{
                 productos[indice][key] = productoNuevo[key]
             }
         }
-        res.json(producto);
     }
 });
 routerProductos.delete('/:id', (req, res) =>{    
