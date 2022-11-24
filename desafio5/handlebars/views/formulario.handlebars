@@ -1,0 +1,67 @@
+<h1 style="color:blue;">Ingrese Producto</h1>
+<br />
+
+<form action="/productos" method="post">
+
+  <div class="form-group">
+    <label for="nombre"><b>Nombre</b></label>
+    <input
+      id="nombre"
+      class="form-control"
+      type="text"
+      name="nombre"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="precio"><b>Precio</b></label>
+    <input
+      id="precio"
+      class="form-control"
+      type="number"
+      name="precio"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="thumbnail"><b>Foto URL</b></label>
+    <input
+      id="thumbnail"
+      class="form-control"
+      type="url"
+      name="thumbnail"
+      required
+    />
+  </div>
+
+  <button class="btn btn-success mt-3 mb-5">Enviar</button>
+</form>
+
+{{! Historial }}
+<h2 style="color:crimson;">Vista de Productos</h2>
+{{#if productos.length}}
+  <div class="table-responsive">
+    <table border="3px" class="table table-dark">
+      <tr class="text-center" style="color: gold;">
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Foto</th>
+      </tr>
+      {{#each productos}}
+        <tr align="center">
+          <td>{{this.nombre}}</td>
+          <td>{{this.precio}}</td>
+          <td><img
+              style="width: 100px"
+              src="{{this.thumbnail}}"
+              alt="{{this.title}}"
+            /></td>
+        </tr>
+      {{/each}}
+    </table>
+  </div>
+{{else}}
+  <h3 class="alert alert-danger">No se encontraron productos</h3>
+{{/if}}

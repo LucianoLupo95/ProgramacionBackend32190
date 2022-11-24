@@ -1,0 +1,10 @@
+De los 3 motores, me gustó más ejs. Me pareció que su sintáxis es bastante amigable, ya que
+es nada más escribir JS entre <% %>. Además me resultó super práctico tener todo en la carpeta
+views y poder incluir los partials con una sintaxis sencilla como es <%- include.
+
+Pug me pareció muy incomodo y el peor de los tres, tuve que buscar conversores de html a pug para 
+poder usarlo. En JavaScript no estamos acostumbrados a depender de la identación, así que me pareció
+un poco dificultoso.
+
+Handlebars no está mal, pero me complicó un poco el determinar qué archivo iba dentro de 
+layouts y cual en views. Además tuve que buscar la sintaxis de los helpers.

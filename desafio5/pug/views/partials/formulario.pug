@@ -1,0 +1,33 @@
+h1(style='color:blue;') Ingrese Producto
+br
+form(action='/productos' method='post')
+  .form-group
+    label(for='nombre')
+      b Nombre
+    input#nombre.form-control(type='text' name='nombre' required='')
+  .form-group
+    label(for='precio')
+      b Precio
+    input#precio.form-control(type='number' name='precio' required='')
+  .form-group
+    label(for='thumbnail')
+      b Foto URL
+    input#thumbnail.form-control(type='text' name='thumbnail' required='')
+  button.btn.btn-success.mt-3.mb-5 Enviar
+  br
+  h2(style="color:crimson;") Vista de Productos
+  if productos.length != 0
+      div(class="table-responsive").text-center
+          table.table.table-dark
+              tr(style="color: yellow;")
+                  th Nombre
+                  th Precio
+                  th Foto URL
+              each val in productos
+                  tr
+                      td= val.nombre
+                      td= val.precio
+                      td
+                          img(style="max-width: 100px", src=val.thumbnail, alt=val.nombre)
+  else
+      h3(class="alert alert-danger") No se encontraron productos
