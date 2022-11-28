@@ -1,0 +1,8 @@
+[
+  {
+    "nombre": "das",
+    "precio": "2000",
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Esmeralda-1-.jpg",
+    "id": 2
+  }
+]
