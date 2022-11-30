@@ -4,14 +4,13 @@ const socket = io();
 socket.on("mensajes", (data) => {
   const html = data
     .map((msj) => {
-      return `<div class="rounded col-3 text-break" style="background: gray">
-        <strong style="color: blue">${msj.email}:</strong>
-        <em style="color: white">${msj.message}</em>
-        <br>
-        <em>${msj.date}</em>
-        </div>`;
+      return `<p style="color: brown">
+        <strong style="color: blue">${msj.email} </strong>
+        [${msj.date}]
+        <em style="color: green">${msj.message}</em>
+        </p>`;
     })
-    .join("<br>");
+    .join("");
 
   document.getElementById("messages").innerHTML = html;
 });
