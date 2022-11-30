@@ -12,21 +12,21 @@ socket.on("mensajes", (data) => {
     })
     .join("");
 
-  document.getElementById("messages").innerHTML = html;
+  document.querySelector("#messages").innerHTML = html;
 });
 
 document
-  .getElementById("chat-form")
+  .querySelector("#chat-form")
   .addEventListener("submit", function (event) {
     const message = {
       date: new Date().toLocaleString(),
-      email: document.getElementById("email").value,
-      message: document.getElementById("message").value,
+      email: document.querySelector("#email").value,
+      message: document.querySelector("#message").value,
     };
 
     socket.emit("new-message", message);
     event.preventDefault();
-    document.getElementById("chat-form").reset();
+    document.querySelector("#chat-form").reset();
   });
 
 //Socket producto
@@ -60,36 +60,36 @@ socket.on("productos", (data) => {
               .join("")}</table>`
       : `<h3 class="alert alert-danger">No se encontraron productos</h3>`;
 
-  document.getElementById("historial-productos").innerHTML = html;
+  document.querySelector("#historial-productos").innerHTML = html;
 });
 
 document
-  .getElementById("products-form")
+  .querySelector("#products-form")
   .addEventListener("submit", function (event) {
     const producto = {
-      nombre: document.getElementById("nombre").value,
-      precio: document.getElementById("precio").value,
-      thumbnail: document.getElementById("thumbnail").value,
+      nombre: document.querySelector("#nombre").value,
+      precio: document.querySelector("#precio").value,
+      thumbnail: document.querySelector("#thumbnail").value,
     };
 
     socket.emit("new-product", producto);
     event.preventDefault();
-    document.getElementById("products-form").reset();
+    document.querySelector("#products-form").reset();
   });
 
 //Boton Delete
 document
-  .getElementById("chat-form")
+  .querySelector("#chat-form")
   .addEventListener("submit", function (event) {
     const message = {
-      author: document.getElementById("username").value,
-      text: document.getElementById("text").value,
+      author: document.querySelector("#username").value,
+      text: document.querySelector("#text").value,
       date: new Date().toLocaleString(),
     };
 
     socket.emit("new-message", message);
     event.preventDefault();
-    document.getElementById("chat-form").reset();
+    document.querySelector("#chat-form").reset();
   });
 
 const deleteProduct = (id) => {

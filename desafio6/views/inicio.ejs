@@ -5,23 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario en EJS</title>
-    <link rel="icon" type="image/png" href="https://ejs.co/favicon.svg" />
+    <link rel="icon" type="image/png"
+        href="https://static.wikia.nocookie.net/logopedia/images/8/81/Msn_messenger_logo.jpg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 
-<body
-    style="background: repeat url('https://static.vecteezy.com/system/resources/previews/008/942/398/non_2x/ejs-logo-ejs-letter-ejs-letter-logo-design-initials-ejs-logo-linked-with-circle-and-uppercase-monogram-logo-ejs-typography-for-technology-business-and-real-estate-brand-vector.jpg'); background-size: 500px;">
+<body style="background: repeat url('https://static.wikia.nocookie.net/logopedia/images/8/81/Msn_messenger_logo.jpg');">
     <div class="container mt-3">
         <div class="jumbotron">
             <%- include('./formulario')-%>
                 <%- include('./historial')-%>
         </div>
     </div>
-    <div class="container mt-3">
-        <div class="jumbotron">
-            <%- include('./chat.ejs')-%>
-        </div>
+    <div class="jumbotron">
+        <%- include('./chat.ejs')-%>
     </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/main.js"></script>
