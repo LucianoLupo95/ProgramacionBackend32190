@@ -1,0 +1,14 @@
+[
+  {
+    "date": "30/11/2022, 10:41:59",
+    "email": "lucho-2-1@hotmail.com",
+    "message": "Que onda",
+    "id": 1
+  },
+  {
+    "date": "30/11/2022, 10:42:11",
+    "email": "lnlupo@americanenrollment.com",
+    "message": "Holss",
+    "id": 2
+  }
+]
