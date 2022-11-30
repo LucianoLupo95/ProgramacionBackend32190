@@ -1,8 +1,0 @@
-[
-  {
-    "nombre": "Luciano Nehuen",
-    "precio": "2000",
-    "thumbnail": "https://www.caracteristicass.de/wp-content/uploads/2022/02/caracteristicas-del-oro.jpg",
-    "id": 1
-  }
-]
