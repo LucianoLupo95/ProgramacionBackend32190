@@ -9,6 +9,7 @@ const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 const httpServer = HttpServer(app);
 const io = new IOServer(httpServer);
+app.use(express.static("public"));
 
 //Contenedor
 class Contenedor {
@@ -68,6 +69,7 @@ class Contenedor {
 }
 //Productos
 const contenedorProductos = new Contenedor("./productos.txt");
+const contenedorMensajes = new Contenedor("./mensajes.txt");
 app.get("/productos", async (req, res) => {
   try {
     const productos = await contenedorProductos.getAll();
@@ -78,33 +80,28 @@ app.get("/productos", async (req, res) => {
   }
 });
 
-app.post("/productos", (req, res) => {
-  contenedorProductos.save(req.body);
-  res.redirect("/productos");
-});
-app.get("/productos/borrar/:id", (req, res) => {
-  console.log("Borrar");
-  const id = parseInt(req.params.id);
-  contenedorProductos.deleteById(id);
-  res.redirect("/productos");
-});
-
 //Sockets
-const mensajes = [
-  { author: "Dario", text: "los temas están separados en tres bloques" },
-  { author: "Ivan", text: "ivan" },
-  { author: "Ariel", text: "Tony, Bruce" },
-  { author: "Pedro", text: "Choco" },
-];
-io.on("connection", (socket) => {
+io.on("connection", async (socket) => {
   console.log("Un cliente se ha conectado");
+  const productos = await contenedorProductos.getAll();
+  const mensajes = await contenedorMensajes.getAll();
+  socket.emit("productos", productos);
+  socket.emit("mensajes", mensajes);
 
-  socket.emit("messages", mensajes);
-
-  socket.on("new-message", (data) => {
-    mensajes.push(data);
-
-    io.sockets.emit("messages", mensajes);
+  socket.on("new-product", async (data) => {
+    await contenedorProductos.save(data);
+    const productos = await contenedorProductos.getAll();
+    io.sockets.emit("productos", productos);
+  });
+  socket.on("delete-product", async (id) => {
+    await contenedorProductos.deleteById(id);
+    const productos = await contenedorProductos.getAll();
+    io.sockets.emit("productos", productos);
+  });
+  socket.on("new-message", async (data) => {
+    await contenedorMensajes.save(data);
+    const mensajes = await contenedorMensajes.getAll();
+    io.sockets.emit("mensajes", mensajes);
   });
 });
 
