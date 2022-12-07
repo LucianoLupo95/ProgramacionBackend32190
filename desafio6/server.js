@@ -23,7 +23,7 @@ app.get("/productos", async (req, res) => {
     res.render("inicio", { productos });
   } catch (err) {
     console.log(err);
-    res.status(400).json({ err });
+    res.status(401).json({ err });
   }
 });
 

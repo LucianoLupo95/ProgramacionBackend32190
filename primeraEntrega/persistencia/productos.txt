@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Pelicula",
+    "thumbnail": "peli.jpeg",
+    "id": 1,
+    "persona": "Pedro",
+    "amigos": "si",
+    "terminado": "si",
+    "perro": "si"
+  },
+  {
+    "title": "Hola",
+    "id": 2
+  },
+  {
+    "persona": "Pedro",
+    "id": 3
+  },
+  {
+    "persona": "Pedro",
+    "id": 4
+  }
+]
