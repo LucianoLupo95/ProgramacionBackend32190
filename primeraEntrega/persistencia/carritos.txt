@@ -1,15 +1,1 @@
-[
-  {
-    "id": 2,
-    "title": "Hola"
-  },
-  {
-    "id": 1,
-    "title": "Pelicula",
-    "thumbnail": "peli.jpeg",
-    "persona": "Pedro",
-    "amigos": "si",
-    "terminado": "si",
-    "perro": "si"
-  }
-]
+[]

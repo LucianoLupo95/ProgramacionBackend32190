@@ -12,6 +12,7 @@ class Container {
     } else {
       arrayObjetos[indice]["id"] = arrayObjetos[indice - 1]["id"] + 1;
     }
+    arrayObjetos[indice]["timestamp"] = new Date().toLocaleString();
     const str = JSON.stringify(arrayObjetos, null, 2);
     try {
       await fs.promises.writeFile(this.archivo, str);
@@ -72,6 +73,24 @@ class Container {
       await fs.promises.writeFile(this.archivo, []);
     } catch {
       console.log("No se pudo eliminar");
+    }
+  }
+  async fillCart(cartId, product) {
+    const cart = await this.getById(cartId);
+    cart.productos.push(product);
+    this.put(cartId, cart);
+  }
+  async deleteProduct(cartId, productId) {
+    const cart = await this.getById(cartId);
+    let product = cart.productos.find((e) => e.id === productId);
+    console.log(product);
+    if (product == undefined) {
+      return null;
+    } else {
+      let index = cart.productos.indexOf(product);
+      cart.productos.splice(index, 1);
+      await this.put(cartId, cart);
+      return true;
     }
   }
 }

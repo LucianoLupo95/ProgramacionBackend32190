@@ -1,23 +1,22 @@
 [
   {
-    "title": "Pelicula",
-    "thumbnail": "peli.jpeg",
+    "nombre": "Amatista",
+    "descripcion": "Amatista Argentina",
+    "código": "AM",
+    "foto": "https://vivescortadaimport.com/diccionario-minerales/minerales/amatista/amatista-mineral.jpg",
+    "precio": 500,
+    "stock": 20,
     "id": 1,
-    "persona": "Pedro",
-    "amigos": "si",
-    "terminado": "si",
-    "perro": "si"
+    "timestamp": "7/12/2022, 16:41:33"
   },
   {
-    "title": "Hola",
-    "id": 2
-  },
-  {
-    "persona": "Pedro",
-    "id": 3
-  },
-  {
-    "persona": "Pedro",
-    "id": 4
+    "nombre": "Esmeralda",
+    "descripcion": "Esmeralda Africana",
+    "código": "ES",
+    "foto": "https://pedrasmensageiras.com/wp-content/uploads/2018/05/significado-esmeralda-1.jpg",
+    "precio": 100000,
+    "stock": 5,
+    "id": 3,
+    "timestamp": "7/12/2022, 16:41:51"
   }
 ]

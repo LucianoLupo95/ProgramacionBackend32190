@@ -6,6 +6,7 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set("json spaces", 2);
 
 const productsContainer = new Container("./persistencia/productos.txt");
 const cartContainer = new Container("./persistencia/carritos.txt");
@@ -113,7 +114,7 @@ productsRouter.delete("/:id?", async (req, res) => {
 
 cartRouter.post("/", async (req, res) => {
   try {
-    const id = await cartContainer.save({});
+    const id = await cartContainer.save({ productos: [] });
     res.status(201).json(id);
   } catch (err) {
     console.log(err);
@@ -151,18 +152,15 @@ cartRouter.get("/:id/productos", async (req, res) => {
     res.status(400).json({ err });
   }
 });
-cartRouter.post("/:id/productos", async (req, res) => {
+cartRouter.post("/:id/productos/:id_prod", async (req, res) => {
   try {
-    const idContainer = parseInt(req.params.id);
-    const idProduct = req.body.id;
-    const product = await productsContainer.getById(idProduct);
+    const cartId = parseInt(req.params.id);
+    const product = await productsContainer.getById(
+      parseInt(req.params.id_prod)
+    );
     if (product) {
-      const found = await cartContainer.put(idContainer, product);
-      if (found) {
-        res.status(201).send("Actualizado con éxito");
-      } else {
-        res.status(422).json("No encontrado");
-      }
+      await cartContainer.fillCart(cartId, product);
+      res.status(201).send("Creado con éxito");
     } else {
       res.status(422).json("No encontrado");
     }
@@ -171,8 +169,26 @@ cartRouter.post("/:id/productos", async (req, res) => {
     res.status(400).json({ err });
   }
 });
-cartRouter.delete("/:id/productos/:id_prod", (req, res) => {
-  res.send("delete");
+cartRouter.delete("/:id/productos/:id_prod", async (req, res) => {
+  try {
+    const cartId = parseInt(req.params.id);
+    const prodID = parseInt(req.params.id_prod);
+    const product = await productsContainer.getById(prodID);
+    const cart = await cartContainer.getById(cartId);
+    if (product && cart) {
+      const found = await cartContainer.deleteProduct(cartId, prodID);
+      if (found) {
+        res.status(201).json("Borrado con éxito");
+      } else {
+        res.status(422).json("El producto no está en el carrito");
+      }
+    } else {
+      res.status(422).json("No encontrado");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ err });
+  }
 });
 
 app.use("/api/productos", productsRouter);
