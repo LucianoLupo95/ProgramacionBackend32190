@@ -1,5 +1,6 @@
 const express = require("express");
 const { Router } = express;
+const { productsContainer } = require("./productsRouter");
 const Container = require("../container");
 
 const cartContainer = new Container("./persistencia/carritos.txt");
@@ -45,12 +46,12 @@ cartRouter.get("/:id/productos", async (req, res) => {
     res.status(400).json({ err });
   }
 });
-cartRouter.post("/:id/productos/:id_prod", async (req, res) => {
+cartRouter.post("/:id/productos/:id_prod?", async (req, res) => {
   try {
     const cartId = parseInt(req.params.id);
-    const product = await productsContainer.getById(
-      parseInt(req.params.id_prod)
-    );
+    const prodId = req.body.id || req.params.id_prod;
+    console.log(req.params.id_prod);
+    const product = await productsContainer.getById(parseInt(prodId));
     if (product) {
       await cartContainer.fillCart(cartId, product);
       res.status(201).send("Creado con éxito");
