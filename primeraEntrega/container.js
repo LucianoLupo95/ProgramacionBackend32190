@@ -19,6 +19,7 @@ class Container {
       return arrayObjetos[indice]["id"];
     } catch (err) {
       console.log("No se pudo guardar");
+      console.log(err);
     }
   }
   async put(id, updatedElement) {
