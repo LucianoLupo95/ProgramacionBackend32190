@@ -6,7 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set("json spaces", 2);
-app.use(express.static("public"));
 
 app.use("/api/productos", productsRouter);
 app.use("/api/carrito", cartRouter);

@@ -12,7 +12,7 @@ productsRouter.get("/:id?", async (req, res) => {
     if (id) {
       const producto = await productsContainer.getById(id);
       if (producto) {
-        res.status(201).json(producto);
+        res.status(200).json(producto);
       } else {
         res.status(422).json("No encontrado");
       }
@@ -52,7 +52,7 @@ productsRouter.put("/:id", async (req, res) => {
       const updatedProduct = req.body;
       const producto = await productsContainer.put(id, updatedProduct);
       if (producto) {
-        res.status(201).send("Actualizado con éxito");
+        res.status(204).send("Actualizado con éxito");
       } else {
         res.status(422).json("No encontrado");
       }
@@ -74,7 +74,7 @@ productsRouter.delete("/:id?", async (req, res) => {
         const producto = await productsContainer.getById(id); //Este get by ID es para poder chequear antes si existe, ya que my deleteById devuelve un array sin importar si se hizo el delete o no
         if (producto) {
           await productsContainer.deleteById(id);
-          res.status(201).json("Borrado con éxito");
+          res.status(204).json("Borrado con éxito");
         } else {
           res.status(422).json("No encontrado");
         }
@@ -83,7 +83,7 @@ productsRouter.delete("/:id?", async (req, res) => {
           const productos = await productsContainer.getAll(); //Este getAll es para poder chequear antes si hay productos
           if (productos.length > 0) {
             await productsContainer.deleteAll();
-            res.status(201).json("Borrados todos los productos con éxito");
+            res.status(200).json("Borrados todos los productos con éxito");
           } else {
             res.status(422).json("No hay productos para eliminar");
           }
