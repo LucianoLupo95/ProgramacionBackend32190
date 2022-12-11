@@ -2,10 +2,11 @@
 import express from "express";
 import { Server as HttpServer } from "http";
 import { Server as IOServer } from "socket.io";
-import Contenedor from "./contenedor.js";
+import { SQLLiteoptions } from "./options/sqlLiteconn.js";
 import { mySQLoptions } from "./options/mysqlconn.js";
 import SQLClient from "./SQLClient.js";
-const sql = new SQLClient(mySQLoptions);
+const mysql = new SQLClient(mySQLoptions, "products");
+const sqlite = new SQLClient(SQLLiteoptions, "chat");
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -15,17 +16,12 @@ const httpServer = HttpServer(app);
 const io = new IOServer(httpServer);
 app.use(express.static("public"));
 
-//Contenedor
-
 //Productos
-const contenedorProductos = new Contenedor("./productos.txt");
-const contenedorMensajes = new Contenedor("./mensajes.txt");
 app.get("/productos", async (req, res) => {
   try {
-    const productos = await contenedorProductos.getAll();
+    const productos = await mysql.getAll();
     res.render("inicio", { productos });
   } catch (err) {
-    console.log(err);
     res.status(401).json({ err });
   }
 });
@@ -33,25 +29,24 @@ app.get("/productos", async (req, res) => {
 //Sockets
 io.on("connection", async (socket) => {
   console.log("Un cliente se ha conectado");
-  // const productos = await contenedorProductos.getAll();
-  const productos = await sql.getAll();
-  const mensajes = await contenedorMensajes.getAll();
+  const productos = await mysql.getAll();
+  const mensajes = await sqlite.getAll();
   socket.emit("productos", productos);
   socket.emit("mensajes", mensajes);
 
   socket.on("new-product", async (data) => {
-    await sql.addProduct(data);
-    const productos = await sql.getAll();
+    await mysql.add(data);
+    const productos = await mysql.getAll();
     io.sockets.emit("productos", productos);
   });
   socket.on("delete-product", async (id) => {
-    await sql.deletebyId(id);
-    const productos = await sql.getAll();
+    await mysql.deletebyId(id);
+    const productos = await mysql.getAll();
     io.sockets.emit("productos", productos);
   });
   socket.on("new-message", async (data) => {
-    await contenedorMensajes.save(data);
-    const mensajes = await contenedorMensajes.getAll();
+    await sqlite.add(data);
+    const mensajes = await sqlite.getAll();
     io.sockets.emit("mensajes", mensajes);
   });
 });
