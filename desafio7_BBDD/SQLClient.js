@@ -6,7 +6,7 @@ class SQLClient {
     this.tableName = tableName;
   }
 
-  createTable() {
+  async createTable() {
     if (this.tableName === "products") {
       return this.knex.schema.dropTableIfExists("products").finally(() => {
         return this.knex.schema.createTable("products", (table) => {
@@ -26,18 +26,18 @@ class SQLClient {
       });
     }
   }
-  add(data) {
+  async add(data) {
     return this.knex(this.tableName).insert(data);
   }
 
-  getAll() {
+  async getAll() {
     return this.knex(this.tableName).select("*");
   }
 
-  deletebyId(id) {
+  async deletebyId(id) {
     return this.knex.from(this.tableName).where("id", "=", id).del();
   }
-  close() {
+  async close() {
     this.knex.destroy();
   }
 }

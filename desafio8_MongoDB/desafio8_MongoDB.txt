@@ -1,0 +1,36 @@
+0. mongod --dbpath="./db"
+   mongosh
+
+1 2. db.productos.insertMany([
+{"nombre":"Amatista", "precio":120, "thumbnail": "https://www.gruta.com.ar/imagenes/archivos/2020-11/630-8nv_1605732583.JPG"},
+{"nombre":"Ambar", "precio":580, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-08/3034-Ambar27x24_1.JPG"},
+{"nombre":"Astrofilita", "precio":900, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-03/1639-300-whq_1616253254.jpg"},
+{"nombre":"Azurita Malaquita", "precio":1280, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-02/1435-300-6tj_1614367019.jpg"},
+{"nombre":"Cerusita con Pirita", "precio":1700, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-09/3653-CerusitaPirita36x48_1.jpg"},
+{"nombre":"Citrino", "precio":2300, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2020-11/604-300-hcz_1605560334.JPG"},
+{"nombre":"Galena", "precio":2860, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-03/1468-300-cv0_1615042364.jpg"},
+{"nombre":"Lapislazuli", "precio":3350, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-09/3317-Lapislazuli21x32_1.JPG"},
+{"nombre":"Piromorfita", "precio":4320, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2020-10/442-300-fog_1603744577.jpg"},
+{"nombre":"Shattuckita", "precio":4990, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-09/3295-Shattuckita19x22_1.JPG"}
+])
+
+3. db.productos.find()
+4. db.productos.countDocuments()
+5. a. db.productos.insertOne({nombre:"Turmalina Negra", precio:710, thumbnail: "https://www.gruta.com.ar//imagenes/archivos/2022-09/4879-300-ysv_1663186801.JPG"})
+
+b.
+i. db.productos.find({"precio": {$lt: 1000}})
+ii. db.productos.find({$and: [{"precio": {$gt:1000}},{"precio": {$lt:3000}}]})
+iii. db.productos.find({"precio": {$gt: 3000}})
+iv. db.productos.find({}, {"nombre":1, "\_id":0}).sort({"precio": 1}).skip(2).limit(1)
+
+c. db.productos.updateMany({}, {$set: {"stock": 100}})
+d. db.productos.updateMany({"precio": {$gt: 4000}}, {$set: {"stock": 0}})
+e. db.productos.deleteMany({"precio": {$lt: 1000}})
+
+6.  db.productos.deleteMany({})
+    id nombre "precio" "thumbnail"
+
+db.productos.find()
+db.producto.find({"precio": {$gt: 2000}})
+a. db.productos.insertOne({nombre:"Piedra Falsa", precio:40, thumbnail: "https://www.gruta.com.ar//imagenes/archivos/2022-09/4879-300-ysv_1663186801.JPG"})

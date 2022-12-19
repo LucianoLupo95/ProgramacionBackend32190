@@ -20,6 +20,7 @@ app.use(express.static("public"));
 app.get("/productos", async (req, res) => {
   try {
     const productos = await mysql.getAll();
+    await mysql.close();
     res.render("inicio", { productos });
   } catch (err) {
     res.status(401).json({ err });
@@ -31,22 +32,27 @@ io.on("connection", async (socket) => {
   console.log("Un cliente se ha conectado");
   const productos = await mysql.getAll();
   const mensajes = await sqlite.getAll();
+  await mysql.close();
+  await sqlite.close();
   socket.emit("productos", productos);
   socket.emit("mensajes", mensajes);
 
   socket.on("new-product", async (data) => {
     await mysql.add(data);
     const productos = await mysql.getAll();
+    await mysql.close();
     io.sockets.emit("productos", productos);
   });
   socket.on("delete-product", async (id) => {
     await mysql.deletebyId(id);
     const productos = await mysql.getAll();
+    await mysql.close();
     io.sockets.emit("productos", productos);
   });
   socket.on("new-message", async (data) => {
     await sqlite.add(data);
     const mensajes = await sqlite.getAll();
+    await sqlite.close();
     io.sockets.emit("mensajes", mensajes);
   });
 });
