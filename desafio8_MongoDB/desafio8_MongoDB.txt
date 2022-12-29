@@ -1,7 +1,11 @@
 0. mongod --dbpath="./db"
    mongosh
 
-1 2. db.productos.insertMany([
+1. 
+db.createCollection("ecommerce")  //Este paso es opcional, porque ya se crea con los comandos del punto 2
+
+
+2. db.ecommerce.insertMany([
 {"nombre":"Amatista", "precio":120, "thumbnail": "https://www.gruta.com.ar/imagenes/archivos/2020-11/630-8nv_1605732583.JPG"},
 {"nombre":"Ambar", "precio":580, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-08/3034-Ambar27x24_1.JPG"},
 {"nombre":"Astrofilita", "precio":900, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-03/1639-300-whq_1616253254.jpg"},
@@ -14,23 +18,32 @@
 {"nombre":"Shattuckita", "precio":4990, "thumbnail": "https://www.gruta.com.ar//imagenes/archivos/2021-09/3295-Shattuckita19x22_1.JPG"}
 ])
 
-3. db.productos.find()
-4. db.productos.countDocuments()
-5. a. db.productos.insertOne({nombre:"Turmalina Negra", precio:710, thumbnail: "https://www.gruta.com.ar//imagenes/archivos/2022-09/4879-300-ysv_1663186801.JPG"})
+3. db.ecommerce.find()
+4. db.ecommerce.countDocuments()
+5. a. db.ecommerce.insertOne({nombre:"Turmalina Negra", precio:710, thumbnail: "https://www.gruta.com.ar//imagenes/archivos/2022-09/4879-300-ysv_1663186801.JPG"})
 
 b.
-i. db.productos.find({"precio": {$lt: 1000}})
-ii. db.productos.find({$and: [{"precio": {$gt:1000}},{"precio": {$lt:3000}}]})
-iii. db.productos.find({"precio": {$gt: 3000}})
-iv. db.productos.find({}, {"nombre":1, "\_id":0}).sort({"precio": 1}).skip(2).limit(1)
+i. db.ecommerce.find({"precio": {$lt: 1000}})
+ii. db.ecommerce.find({$and: [{"precio": {$gt:1000}},{"precio": {$lt:3000}}]})
+iii. db.ecommerce.find({"precio": {$gt: 3000}})
+iv. db.ecommerce.find({}, {"nombre":1, "\_id":0}).sort({"precio": 1}).skip(2).limit(1)
 
-c. db.productos.updateMany({}, {$set: {"stock": 100}})
-d. db.productos.updateMany({"precio": {$gt: 4000}}, {$set: {"stock": 0}})
-e. db.productos.deleteMany({"precio": {$lt: 1000}})
+c. db.ecommerce.updateMany({}, {$set: {"stock": 100}})
+d. db.ecommerce.updateMany({"precio": {$gt: 4000}}, {$set: {"stock": 0}})
+e. db.ecommerce.deleteMany({"precio": {$lt: 1000}})
 
-6.  db.productos.deleteMany({})
-    id nombre "precio" "thumbnail"
+6.  use admin
+    db.createUser(
+      {"user":"pepe", 
+      "pwd":"asd456", 
+      "roles": [
+        {"role": "read", "db": "ecommerce"}
+      ]
+      }
+    )
 
-db.productos.find()
-db.producto.find({"precio": {$gt: 2000}})
-a. db.productos.insertOne({nombre:"Piedra Falsa", precio:40, thumbnail: "https://www.gruta.com.ar//imagenes/archivos/2022-09/4879-300-ysv_1663186801.JPG"})
+    mongod  --dbpath="./db" --auth
+    mongosh -u pepe -p asd456
+
+    Probe insertar el siguiente producto y comprobe que no me deja cambiar la info:
+a. db.ecommerce.insertOne({nombre:"Piedra Falsa", precio:40, thumbnail: "https://www.gruta.com.ar//imagenes/archivos/2022-09/4879-300-ysv_1663186801.JPG"})
